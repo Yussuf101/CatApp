@@ -31,7 +31,7 @@ function App() {
   useEffect(() => {
     handleFetch()
   }, [])
-  const {products}=data;
+  const {products}=Cats;
   const [BasketItems, setBasketItems] = useState([]);
   const AddItems = (product) => {
   const exist = BasketItems.find((x) => x.id === product.id);
