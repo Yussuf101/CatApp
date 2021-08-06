@@ -1,6 +1,19 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import {name, commerce} from "faker"
+// import faker from "faker"
 
 import Navbar from './components/Navbar.js';
 import Home from './components/Home.js';
@@ -13,16 +26,18 @@ function App() {
   const [data, setData] = useState({})
   // const names = ["Fluffy", "Tiger", "Bob"]
 
+  console.log(process.argv.REACT_APP_API_KEY)
+
   const handleFetch = async () => {
     const response = await fetch('https://api.thecatapi.com/v1/images/search?limit=15')
     const data = await response.json()
     for (let i = 0; i < data.length; i++) {
       const item = data[i];
-      // item.name = "Bob"
-      item.name = name.firstName()
-      item.price = commerce.price()
+      item.name = "Bob"
+      // item.name = faker.name.firstname()
+      // item.price = faker.commerce.price()
       // https://www.npmjs.com/package/faker
-    } 
+    }
     setData(data)
   }
 
@@ -49,9 +64,8 @@ function App() {
 const CatCard = ({item}) => {
   return (
     <div>
-      <img src={item.url} />
       <p>{item.name}</p>
-      <p>£{item.price}</p>
+      <img src={item.url} />
     </div>
   )
 }
