@@ -6,6 +6,8 @@ import Navbar from './components/Navbar.js';
 import Home from './components/Home.js';
 import Cat from '../src/components/Cats.js'
 
+import Basket from './components/pages/Basket'
+
 import '../src/index.css';
 import '../src/App.css';
 
@@ -29,6 +31,32 @@ function App() {
   useEffect(() => {
     handleFetch()
   }, [])
+  const {products}=data;
+  const [BasketItems, setBasketItems] = useState([]);
+  const AddItems = (product) => {
+  const exist = BasketItems.find((x) => x.id === product.id);
+  if (exist) {
+    setBasketItems(
+      BasketItems.map((x) =>
+        x.id === product.id ? { ...exist, qty: exist.qty + 1 } : x
+      )
+    );
+  } else {
+    setBasketItems([...BasketItems, { ...product, qty: 1 }]);
+  }
+};
+const RemoveItems = (product) => {
+  const exist = BasketItems.find((x) => x.id === product.id);
+  if (exist.qty === 1) {
+    setBasketItems(BasketItems.filter((x) => x.id !== product.id));
+  } else {
+    setBasketItems(
+      BasketItems.map((x) =>
+        x.id === product.id ? { ...exist, qty: exist.qty - 1 } : x
+      )
+    );
+  }
+};
 
   return (
     <>
